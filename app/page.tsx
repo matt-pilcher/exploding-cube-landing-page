@@ -3,6 +3,8 @@
 import dynamic from "next/dynamic"
 import ThemeSwitch from "@/components/ThemeSwitch"
 
+const Scene = dynamic(() => import("@/components/Scene"), { ssr: false })
+
 export default function Home() {
 
   return (
@@ -50,7 +52,10 @@ export default function Home() {
       
       <aside className="grid items-center overflow-hidden">
         <div className="px-2 overflow-hidden cursor-grab three-d-container relative">
-          canvas
+          {/* TODO: Fix mobile zoom for cube to not be cutoff */}
+          {/* https://drei.docs.pmnd.rs/abstractions/screen-space */}
+          {/* @ts-ignore */}
+          <Scene />
         </div>
       </aside>
       
