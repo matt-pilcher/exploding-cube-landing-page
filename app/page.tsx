@@ -1,7 +1,7 @@
 'use client'
 
 import dynamic from "next/dynamic"
-
+import ThemeSwitch from "@/components/ThemeSwitch"
 
 export default function Home() {
 
@@ -14,18 +14,18 @@ export default function Home() {
         </div>
 
         <div>
-          Toggle theme
+          <ThemeSwitch />
 			 </div>
       </nav>
 
       <section className="grid items-center py-2">
         {/* <!-- center align content container --> */}
         <div className="px-2 py-6">
-          <h1 className="text-5xl pb-4 text-blue-900 leading-tight text-pretty max-w-[15ch] dark:text-white purple">Landing Page 1</h1>
+          <h1 className="text-5xl pb-4 text-blue-900 leading-tight text-pretty max-w-[15ch] dark:text-white purple">Landing Page Test Draft One</h1>
           <p className="pb-6 leading-relaxed text-slate-700 max-w-[50ch] dark:text-white">
             Mvoluptatem accusantium doloremque atus error sit voluptatem. Sed ut perspiciatis unde omnis 
             iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, 
-            eaque ipsa quae ab illo inventore. 
+            eaque ipsa quae ab illo inventore.  
           </p>
           <form>
             <label htmlFor="email-input"></label>
@@ -50,7 +50,7 @@ export default function Home() {
       
       <aside className="grid items-center overflow-hidden">
         <div className="px-2 overflow-hidden cursor-grab three-d-container relative">
-         Canvas
+          canvas
         </div>
       </aside>
       
