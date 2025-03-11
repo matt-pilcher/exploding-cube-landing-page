@@ -2,11 +2,11 @@
 
 import dynamic from "next/dynamic"
 import ThemeSwitch from "@/components/ThemeSwitch"
+import SubscriptionForm from "@/components/SubscriptionForm"
 
 const Scene = dynamic(() => import("@/components/Scene"), { ssr: false })
 
 export default function Home() {
-
   return (
     // <!-- Landing Page 1 -->
     <div className="container grid py-2 m-auto md:grid-cols-2 h-full test-grid">
@@ -29,24 +29,7 @@ export default function Home() {
             iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, 
             eaque ipsa quae ab illo inventore.  
           </p>
-          <form>
-            <label htmlFor="email-input"></label>
-            <input 
-              placeholder="Email" 
-              type="email" 
-              id="email-input" 
-              name="email"
-
-              className="px-6 py-3 border border-blue-400 rounded mr-2" 
-            />
-            <button 
-              type="submit"
-              className="inline-block max-w-xs px-6 py-3 antialiased font-semibold text-white transition duration-200 ease-in-out bg-blue-900 rounded delay-50 hover:-translate-y-1 hover:cursor-pointer hover:bg-blue-700 disabled:bg-blue-300"
-            >
-              Notify Me
-            </button>
-          </form>
-
+          <SubscriptionForm />
         </div>
       </section>
       
