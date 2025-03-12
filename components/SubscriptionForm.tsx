@@ -5,7 +5,12 @@ import { useState } from 'react'
 interface SubscriptionFormProps {
   onSubscriptionSuccess: (success: boolean) => void
 }
+/**
+ * This component handles the state of the email input field on 
+ * the landing page. If you want user submissions to go to your
+ * own email, you can change that at api/subscribe/route.ts
 
+ */
 export default function SubscriptionForm({ onSubscriptionSuccess }: SubscriptionFormProps) {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('idle')
@@ -82,12 +87,10 @@ export default function SubscriptionForm({ onSubscriptionSuccess }: Subscription
         className="px-6 py-3 border border-blue-400 rounded mr-2" 
         disabled={isLoading}
       />
-      <button 
-        type="submit"
-        className="primary-cta"
-      >
+      <button type="submit" className="primary-cta">
         {isLoading ? 'Subscribing...' : 'Notify Me'}
       </button>
+      {/* This div only displays after the user submits the form */}
       {message && (
         <p className={`mt-2 ${status === 'success' ? 'text-green-600' : 'text-red-600'}`}>
           {message}

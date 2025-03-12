@@ -4,26 +4,33 @@ import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 
-// Define the types for the ThemeLabel component's props
+/**
+ * TODO BUG: When darkmode is automatically applied based on user's broswer config, 
+ * the slider matches the wrong icon. Icon should automatically slide to the correct 
+ * icon based on browser setting
+ */
+
 interface ThemeLabelProps {
-  onClick: () => void; // specify that onClick is a function with no parameters and no return value
+  onClick: () => void;
 }
-// TODO BUG: On mobile or automatic dark mode, the icons are reversed. Icon should automatically slide to the default browser setting
+/**
+ * Darkmode toggle used on the landing page
+ */
 function ThemeLabel({ onClick }: ThemeLabelProps) {
   return (
-    // TODO Adjust dark mode font color
     <label className="flex justify-end w-full cursor-pointer">
       <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 5V3m0 18v-2M7.05 7.05 5.636 5.636m12.728 12.728L16.95 16.95M5 12H3m18 0h-2M7.05 16.95l-1.414 1.414M18.364 5.636 16.95 7.05M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"/>
       </svg>
       
       <input type="checkbox" value="" className="sr-only peer" onClick={onClick} />
+
       <div className="relative w-11 h-6 px-4 mx-1 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+      
       <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 21a9 9 0 0 1-.5-17.986V3c-.354.966-.5 1.911-.5 3a9 9 0 0 0 9 9c.239 0 .254.018.488 0A9.004 9.004 0 0 1 12 21Z"/>
       </svg>
-		 </label>
-
+		</label>
   )
 }
 
@@ -44,10 +51,8 @@ export default function ThemeSwitch() {
         priority={false}
         title="Loading Light/Dark Toggle"
       />
-    </div>
-    
+    </div>  
   )
 
   return <ThemeLabel onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}/>
-
 }

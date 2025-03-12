@@ -15,7 +15,11 @@ function Loader() {
   // TODO: Add better styling
   return <Html center>{progress.toFixed(1)} % loaded</Html>
 }
-
+/**
+ * This component renders the 3D environment for the cube. It handles
+ * the lighting , camera setup, and control scheme inside the canvas. 
+ * To modify the cube itself, refer to the Model component.
+ */
 export default function Scene({ onSubscriptionSuccess }: SceneProps) {
   return (
     <Canvas gl={{ antialias: true }} dpr={[1, 1.5]} className="relative" shadows>

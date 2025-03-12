@@ -3,12 +3,18 @@ import { useFrame, useThree } from "@react-three/fiber"
 import { useMotionValue, useSpring, useTransform } from "framer-motion"
 import { useEffect, useRef } from "react"
 import { AnimationAction, Group, MeshPhysicalMaterial } from "three"
+// The cube model file located in /public directory
 useGLTF.preload("/cracked-cube.glb")
 
 interface ModelProps {
   onSubscriptionSuccess: boolean
 }
-
+/**
+ * This component renders the cube which is loaded from the external
+ * .glb file. For example, you can change the color of the cube by 
+ * updating the color hex value inside the physicalMaterial object
+ * on line 36.
+ */
 export default function Model({ onSubscriptionSuccess }: ModelProps)  {
     const motionVal = useMotionValue(0)
 
@@ -25,10 +31,8 @@ export default function Model({ onSubscriptionSuccess }: ModelProps)  {
   
     const spring = useSpring(motionVal, { stiffness: 50});
     const { actions } = useAnimations(animations, scene)
-    
   
     // Apply the material to each mesh in the GLTF model
-  
     const physicalMaterial = new MeshPhysicalMaterial({
       color: 0x1338BE,
       roughness: 0.5,
@@ -48,7 +52,9 @@ export default function Model({ onSubscriptionSuccess }: ModelProps)  {
   
   
     useFrame(({camera}) => {
+      // Change the cube rotation speed and axis
       group.current.rotation.y += 0.001;
+      // Handles the built-in animations from the .glb file
       Object.keys(actions).forEach((key) => {
         const action = actions[key] as AnimationAction
         action.play().paused = true
@@ -57,11 +63,7 @@ export default function Model({ onSubscriptionSuccess }: ModelProps)  {
     });
 
     return (
-      <group
-        onPointerMove={({ object }) => {
-          console.log(object.name)
-        }} 
-        onPointerUp={() => motionVal.set(0)} onPointerDown={() => motionVal.set(1)}  scale={viewport.width / viewport.height} ref={group}>
+      <group onPointerUp={() => motionVal.set(0)} onPointerDown={() => motionVal.set(1)}  scale={viewport.width / viewport.height} ref={group}>
         <primitive object={scene} />
       </group>
     )
