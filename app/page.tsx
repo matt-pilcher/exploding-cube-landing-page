@@ -3,10 +3,13 @@
 import dynamic from "next/dynamic"
 import ThemeSwitch from "@/components/ThemeSwitch"
 import SubscriptionForm from "@/components/SubscriptionForm"
+import { useState } from "react"
 
 const Scene = dynamic(() => import("@/components/Scene"), { ssr: false })
 
 export default function Home() {
+  const [formCompleted, setFormCompleted] = useState('idle')
+
   return (
     // <!-- Landing Page 1 -->
     <div className="container grid py-2 m-auto md:grid-cols-2 h-full test-grid">
@@ -14,22 +17,19 @@ export default function Home() {
         <div className="text-blue-900 dark:text-white text-2xl">
           <a href="/">Logo</a>
         </div>
-
-        <div>
-          <ThemeSwitch />
-			 </div>
+        {/* Dark Mode Toggle */}
+        <ThemeSwitch />
       </nav>
 
       <section className="grid items-center py-2">
         {/* <!-- center align content container --> */}
         <div className="px-2 py-6">
-          <h1 className="text-5xl pb-4 text-blue-900 leading-tight text-pretty max-w-[15ch] dark:text-white purple">Landing Page Test Draft One</h1>
+          <h1 className="text-5xl pb-4 text-blue-900 leading-tight text-pretty max-w-[15ch] dark:text-white purple">3D Email Capture Landing Page</h1>
           <p className="pb-6 leading-relaxed text-slate-700 max-w-[50ch] dark:text-white">
-            Mvoluptatem accusantium doloremque atus error sit voluptatem. Sed ut perspiciatis unde omnis 
-            iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, 
-            eaque ipsa quae ab illo inventore.  
+            A production-ready Next.js landing page template with an interactive email capture form. Submit the form to see the cube
+            expand. You can interact with the cube by grabbing it which triggers an animation.
           </p>
-          <SubscriptionForm />
+          <SubscriptionForm onSubscriptionSuccess={(success) => setFormCompleted(success ? 'success' : 'idle')} />
         </div>
       </section>
       
@@ -38,7 +38,7 @@ export default function Home() {
           {/* TODO: Fix mobile zoom for cube to not be cutoff */}
           {/* https://drei.docs.pmnd.rs/abstractions/screen-space */}
           {/* @ts-ignore */}
-          <Scene />
+          <Scene onSubscriptionSuccess={formCompleted === 'success'} />
         </div>
       </aside>
       

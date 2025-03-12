@@ -5,17 +5,26 @@ import { useEffect, useRef } from "react"
 import { AnimationAction, Group, MeshPhysicalMaterial } from "three"
 useGLTF.preload("/cracked-cube.glb")
 
-export default function Model()  {
+interface ModelProps {
+  onSubscriptionSuccess: boolean
+}
+
+export default function Model({ onSubscriptionSuccess }: ModelProps)  {
     const motionVal = useMotionValue(0)
+
+    // Triggers the cube animation after a user subscribes
+    useEffect(() => {
+      motionVal.set(onSubscriptionSuccess ? 1 : 0)
+    }, [onSubscriptionSuccess])
   
     const group = useRef<Group>(null!);
     const {viewport} = useThree();
-    const { nodes, materials, animations, scene } = useGLTF(
+    const { animations, scene } = useGLTF(
       "/cracked-cube.glb"
     )
   
     const spring = useSpring(motionVal, { stiffness: 50});
-    const { actions, clips } = useAnimations(animations, scene)
+    const { actions } = useAnimations(animations, scene)
     
   
     // Apply the material to each mesh in the GLTF model

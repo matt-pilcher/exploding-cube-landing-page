@@ -2,7 +2,11 @@
 
 import { useState } from 'react'
 
-export default function SubscriptionForm() {
+interface SubscriptionFormProps {
+  onSubscriptionSuccess: (success: boolean) => void
+}
+
+export default function SubscriptionForm({ onSubscriptionSuccess }: SubscriptionFormProps) {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('idle')
   const [message, setMessage] = useState('')
@@ -32,6 +36,7 @@ export default function SubscriptionForm() {
     setEmail('')
     setStatus('success')
     setMessage('Thanks for subscribing! We\'ll keep you posted.')
+    onSubscriptionSuccess(true)
   }
 
   const handleError = (error: unknown) => {
